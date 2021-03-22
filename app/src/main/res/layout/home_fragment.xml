@@ -1,0 +1,81 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/valo_dark"
+    tools:context=".ui.home.HomeFragment">
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical">
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="center"
+                android:padding="10dp"
+                android:text="Home"
+                android:textColor="@color/white"
+                android:textSize="25sp" />
+
+            <TextView
+                android:id="@+id/tv_AllVideos"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="All"
+                android:textColor="@color/white"
+                android:textSize="20sp"
+                android:layout_margin="20dp"
+                android:drawableEnd="@drawable/ic_baseline_arrow_forward_ios_24"
+                />
+            <TextView
+                android:id="@+id/tv_Wallbangs"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Wallbangs"
+                android:textColor="@color/white"
+                android:textSize="20sp"
+                android:layout_margin="20dp"
+                android:drawableEnd="@drawable/ic_baseline_arrow_forward_ios_24"
+                />
+            <TextView
+                android:id="@+id/tv_Popular"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Popular"
+                android:textColor="@color/white"
+                android:textSize="20sp"
+                android:layout_margin="20dp"
+                android:drawableEnd="@drawable/ic_baseline_arrow_forward_ios_24"
+                />
+            <TextView
+                android:id="@+id/tv_Map"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Map"
+                android:textColor="@color/white"
+                android:textSize="20sp"
+                android:layout_margin="20dp"
+                android:drawableEnd="@drawable/ic_baseline_arrow_forward_ios_24"
+                />
+            <TextView
+                android:id="@+id/tv_Agent"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Agent"
+                android:textColor="@color/white"
+                android:textSize="20sp"
+                android:layout_margin="20dp"
+                android:drawableEnd="@drawable/ic_baseline_arrow_forward_ios_24"
+                />
+
+        </LinearLayout>
+    </ScrollView>
+
+</FrameLayout>
