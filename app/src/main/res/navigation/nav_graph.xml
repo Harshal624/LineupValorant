@@ -21,7 +21,12 @@
         tools:layout="@layout/favourites_fragment" />
     <fragment
         android:id="@+id/videoListFragment"
-        android:name="com.harsh.lineupvalorant.ui.VideoListFragment"
+        android:name="com.harsh.lineupvalorant.ui.videolist.VideoListFragment"
         android:label="video_list_fragment"
-        tools:layout="@layout/video_list_fragment" />
+        tools:layout="@layout/video_list_fragment" >
+        <argument
+            android:name="video_type"
+            app:argType="string"
+            app:nullable="true" />
+    </fragment>
 </navigation>

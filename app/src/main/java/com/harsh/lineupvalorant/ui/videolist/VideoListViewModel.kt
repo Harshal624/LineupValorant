@@ -1,4 +1,4 @@
-package com.harsh.lineupvalorant.ui
+package com.harsh.lineupvalorant.ui.videolist
 
 import androidx.lifecycle.ViewModel
 

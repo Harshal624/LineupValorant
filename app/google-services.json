@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "558789014344",
+    "project_id": "lineupvalorant",
+    "storage_bucket": "lineupvalorant.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:558789014344:android:f2c93147ededc792d3397d",
+        "android_client_info": {
+          "package_name": "com.harsh.lineupvalorant"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "558789014344-2prc12igftgujc2huj23cc1c5m3p7arl.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCrCCZK5W4t78YUhIpV5NNcxiVGGOUMBds"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "558789014344-2prc12igftgujc2huj23cc1c5m3p7arl.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
