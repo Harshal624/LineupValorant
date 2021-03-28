@@ -2,7 +2,8 @@ package com.harsh.lineupvalorant.di
 
 import android.app.Application
 import androidx.room.Room
-import com.harsh.lineupvalorant.data.api.VimeoApi
+import com.harsh.lineupvalorant.api.VimeoApi
+import com.harsh.lineupvalorant.data.FirestoreVideosRepository
 import com.harsh.lineupvalorant.data.cache.VideoDao
 import com.harsh.lineupvalorant.data.cache.VideoDatabase
 import com.harsh.lineupvalorant.di.scope.ApplicationScope
@@ -72,4 +73,7 @@ object AppModule {
     @Provides
     @Singleton
     fun provideVimeApiService(retrofit: Retrofit) = retrofit.create(VimeoApi::class.java)
+
+    @Provides
+    fun provideFirestoreVideosRepository(): FirestoreVideosRepository = FirestoreVideosRepository()
 }

@@ -8,17 +8,24 @@ import com.google.firebase.firestore.Exclude
 @Keep
 @Entity(tableName = "video_database")
 data class Video(
-    val title: String?,
-    val description: String?,
-    val date_added: Long?, //Epoch time
+    var title: String = "",
+    var description: String = "",
+    var date_added: Long = 0, //Epoch time
     @PrimaryKey(autoGenerate = false)
-    val video_url: String?,
-    val agent_name: String?,
-    val map_name: String?,
-    val ability_type: String?,
-    val ispopular: Boolean?,
-    val site_name: String?,
+    var video_url: String = "",
+    var agent_name: String = "",
+    var map_name: String = "",
+    var ability_type: String = "",
+    var ispopular: Boolean = false,
+    var site_name: String = "",
     @Exclude
-    val isFavourite: Boolean?
-) {
-}
+    var video_duration: Long = 0,
+    @Exclude
+    var img_small: String = "",
+    @Exclude
+    var img_medium: String = "",
+    @Exclude
+    var img_large: String = "",
+    @Exclude
+    var isFavourite: Boolean = false
+)

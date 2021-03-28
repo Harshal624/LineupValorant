@@ -11,8 +11,11 @@ import kotlinx.coroutines.flow.Flow
 interface VideoDao {
 
     @Insert(onConflict = OnConflictStrategy.REPLACE)
-    suspend fun insertVideo(video: Video)
+    suspend fun insertVideos(videos: List<Video>)
 
-    @Query("Select * from video_database")
+    @Query("DELETE from video_database")
+    suspend fun deleteAllVideos()
+
+    @Query("SELECT * FROM video_database")
     fun getAllVideos(): Flow<List<Video>>
 }
