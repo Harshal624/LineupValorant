@@ -3,12 +3,9 @@ package com.harsh.lineupvalorant.di
 import android.app.Application
 import androidx.room.Room
 import com.harsh.lineupvalorant.data.api.VimeoApi
-import com.harsh.lineupvalorant.data.api.VimeoApiHelper
-import com.harsh.lineupvalorant.data.api.VimeoApiHelperImpl
 import com.harsh.lineupvalorant.data.cache.VideoDao
 import com.harsh.lineupvalorant.data.cache.VideoDatabase
 import com.harsh.lineupvalorant.di.scope.ApplicationScope
-import com.harsh.lineupvalorant.utils.Constants
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
@@ -58,7 +55,7 @@ object AppModule {
 
 
     @Provides
-    fun provideBaseUrl() = Constants.VIMEO_BASE_URL
+    fun provideBaseUrl() = VimeoApi.VIMEO_BASE_URL
 
     @Singleton
     @Provides
@@ -75,8 +72,4 @@ object AppModule {
     @Provides
     @Singleton
     fun provideVimeApiService(retrofit: Retrofit) = retrofit.create(VimeoApi::class.java)
-
-    @Provides
-    @Singleton
-    fun provideVimeoApiHelper(apiHelperImpl: VimeoApiHelperImpl): VimeoApiHelper = apiHelperImpl
 }
