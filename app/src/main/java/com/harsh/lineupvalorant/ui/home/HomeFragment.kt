@@ -41,12 +41,6 @@ class HomeFragment : Fragment(R.layout.home_fragment) {
             LineupSharedPref.init(requireContext())
             workmanagerTv.text = LineupSharedPref.setValue
         }
-
-        viewModel.videoDetails.observe(viewLifecycleOwner) {
-            for (video in it) {
-                Timber.i("Video fetched: ${video}")
-            }
-        }
     }
 
     private fun navigateToVideoListFragment(view: View, videoType: String) {

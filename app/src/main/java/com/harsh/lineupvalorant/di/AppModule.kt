@@ -1,12 +1,14 @@
 package com.harsh.lineupvalorant.di
 
 import android.app.Application
+import android.content.Context
+import android.net.ConnectivityManager
 import androidx.room.Room
 import com.harsh.lineupvalorant.api.VimeoApi
-import com.harsh.lineupvalorant.data.FirestoreVideosRepository
 import com.harsh.lineupvalorant.data.cache.VideoDao
 import com.harsh.lineupvalorant.data.cache.VideoDatabase
 import com.harsh.lineupvalorant.di.scope.ApplicationScope
+import com.harsh.lineupvalorant.utils.datastore.ShouldFetchDataStore
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
@@ -75,5 +77,11 @@ object AppModule {
     fun provideVimeApiService(retrofit: Retrofit) = retrofit.create(VimeoApi::class.java)
 
     @Provides
-    fun provideFirestoreVideosRepository(): FirestoreVideosRepository = FirestoreVideosRepository()
+    @Singleton
+    fun provideConnectivityManager(application: Application): ConnectivityManager =
+        application.getSystemService(Context.CONNECTIVITY_SERVICE) as ConnectivityManager
+
+    @Provides
+    fun provideShouldFetchDataStore(application: Application): ShouldFetchDataStore =
+        ShouldFetchDataStore(application)
 }

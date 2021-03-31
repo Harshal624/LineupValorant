@@ -4,11 +4,14 @@ import android.os.Bundle
 import android.view.View
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
+import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.navArgs
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.harsh.lineupvalorant.R
+import com.harsh.lineupvalorant.api.VimeoApi
 import com.harsh.lineupvalorant.databinding.VideoListFragmentBinding
 import dagger.hilt.android.AndroidEntryPoint
+import javax.inject.Inject
 
 /*
  *Displays a list of videos
@@ -23,12 +26,15 @@ class VideoListFragment : Fragment(R.layout.video_list_fragment) {
 
     private val args: VideoListFragmentArgs by navArgs()
 
+    @Inject
+    lateinit var vimeoApi: VimeoApi
+
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         _binding = VideoListFragmentBinding.bind(view)
         binding.tvVideoType.text = args.videoType
 
-        val adapter = VideoListAdapter()
+        val adapter = VideoListAdapter(vimeoApi, lifecycleScope)
 
         binding.apply {
             recyclerview.adapter = adapter

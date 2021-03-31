@@ -1,30 +1,37 @@
 package com.harsh.lineupvalorant.data.sync
 
 import android.content.Context
-import android.util.Log
-import androidx.work.Worker
+import androidx.work.CoroutineWorker
 import androidx.work.WorkerParameters
-import com.google.firebase.firestore.ktx.firestore
-import com.google.firebase.ktx.Firebase
-import timber.log.Timber
-import java.text.SimpleDateFormat
+import com.harsh.lineupvalorant.utils.datastore.ShouldFetchDataStore
 import java.util.*
+import javax.inject.Inject
 
-class PeriodicSync(context: Context, workerParams: WorkerParameters) :
-    Worker(context, workerParams) {
-    val firebaseDB = Firebase.firestore
 
+class PeriodicSync @Inject constructor(
+    context: Context,
+    workerParams: WorkerParameters
+) :
+    CoroutineWorker(context, workerParams) {
     val TAG = "PeriodicSync"
-
-
-    override fun doWork(): Result {
+    override suspend fun doWork(): Result {
+        val shouldFetchDataStore = ShouldFetchDataStore(applicationContext)
+        if (shouldFetchDataStore.shouldFetch() == null) {
+            shouldFetchDataStore.setShouldFetch(shouldFetch = true)
+        }
+        if (!shouldFetchDataStore.shouldFetch()!!) {
+            shouldFetchDataStore.setShouldFetch(true)
+        }
         var myString = "";
         val calendar = Calendar.getInstance()
-        myString += "Day:${calendar.get(Calendar.DAY_OF_MONTH)}, Hour: ${calendar.get(Calendar.HOUR)}, Minute: ${calendar.get(Calendar.MINUTE)}\n"
+        myString += "Day:${calendar.get(Calendar.DAY_OF_MONTH)}, Hour: ${calendar.get(Calendar.HOUR)}, Minute: ${
+            calendar.get(
+                Calendar.MINUTE
+            )
+        }\n"
         LineupSharedPref.init(applicationContext)
         myString += "\n\n${LineupSharedPref.setValue}"
         LineupSharedPref.setValue = myString
         return Result.success()
     }
-
 }

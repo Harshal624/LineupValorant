@@ -11,4 +11,9 @@ object LUtils {
             TimeUnit.MILLISECONDS.toSeconds(System.currentTimeMillis())
         }
     }
+
+    fun getVideoId(url: String): String {
+        //Function to get video id from a url
+        return ""
+    }
 }

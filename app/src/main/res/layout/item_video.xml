@@ -4,15 +4,23 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:orientation="vertical"
     android:layout_height="wrap_content">
+
+    <ImageView
+        android:id="@+id/iv_Thumbnail"
+        android:layout_width="match_parent"
+        android:layout_height="150dp"
+        tools:src="@drawable/ic_baseline_search_24" />
+
     <TextView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:id="@+id/tv_Title"
+        android:textColor="@color/white"
         tools:text="Smoke from mid to a site"
         android:gravity="center"
         android:textSize="20sp"
-        android:padding="5dp"
-        />
+        android:padding="5dp" />
+
     <TextView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -20,6 +28,15 @@
         tools:text="Cypher"
         android:gravity="center"
         android:padding="5dp"
-        />
+        android:textColor="@color/white" />
+
+    <TextView
+        android:id="@+id/tv_imgurl"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center"
+        android:textColor="@color/white"
+        tools:text="https://xxx"
+        android:padding="5dp" />
 
 </LinearLayout>
