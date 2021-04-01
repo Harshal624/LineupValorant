@@ -10,7 +10,9 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import com.harsh.lineupvalorant.R
 import com.harsh.lineupvalorant.api.VimeoApi
 import com.harsh.lineupvalorant.databinding.VideoListFragmentBinding
+import com.harsh.lineupvalorant.utils.onQueryTextChanged
 import dagger.hilt.android.AndroidEntryPoint
+import kotlinx.coroutines.ExperimentalCoroutinesApi
 import javax.inject.Inject
 
 /*
@@ -18,6 +20,7 @@ import javax.inject.Inject
  *Accepts a video_type argument which should be fetched and when a user clicks on the filter FAB, that filter(e.g.Agent) should be auto selected
  */
 
+@ExperimentalCoroutinesApi
 @AndroidEntryPoint
 class VideoListFragment : Fragment(R.layout.video_list_fragment) {
     private var _binding: VideoListFragmentBinding? = null
@@ -43,6 +46,9 @@ class VideoListFragment : Fragment(R.layout.video_list_fragment) {
         }
         viewModel.videoDetails.observe(viewLifecycleOwner) {
             adapter.submitList(it)
+        }
+        binding.searchView.onQueryTextChanged {
+            viewModel.searchQuery.value = it
         }
     }
 

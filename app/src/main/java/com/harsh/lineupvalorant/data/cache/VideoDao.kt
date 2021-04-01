@@ -19,6 +19,15 @@ interface VideoDao {
     @Query("DELETE from video_database")
     suspend fun deleteAllVideos()
 
-    @Query("SELECT * FROM video_database")
-    fun getAllVideos(): Flow<List<Video>>
+    @Query("SELECT * FROM video_database WHERE title LIKE '%' || :searchQuery || '%' ORDER BY date_added DESC")
+    fun getAllVideos(searchQuery: String): Flow<List<Video>>
+
+    @Query("UPDATE video_database SET video_duration = :videoDuration, img_small = :imgSmall, img_medium = :imgMedium, img_large = :imgLarge WHERE video_url = :video_url")
+    suspend fun updateVideoDetails(
+        video_url: String,
+        videoDuration: Long,
+        imgSmall: String,
+        imgMedium: String,
+        imgLarge: String
+    )
 }

@@ -5,6 +5,9 @@ import com.google.gson.annotations.SerializedName
 
 data class VideoDetails(
     @Expose
+    @SerializedName("id")
+    val video_url: String,
+    @Expose
     @SerializedName("duration")
     val video_duration: Long,
     @Expose

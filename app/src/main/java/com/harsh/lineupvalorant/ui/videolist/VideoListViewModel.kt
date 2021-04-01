@@ -3,17 +3,14 @@ package com.harsh.lineupvalorant.ui.videolist
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.asLiveData
-import androidx.lifecycle.viewModelScope
-import com.google.firebase.firestore.ktx.firestore
-import com.google.firebase.ktx.Firebase
 import com.harsh.lineupvalorant.api.VimeoApi
 import com.harsh.lineupvalorant.data.Video
 import com.harsh.lineupvalorant.data.cache.VideoDao
 import com.harsh.lineupvalorant.utils.datastore.ShouldFetchDataStore
 import dagger.hilt.android.lifecycle.HiltViewModel
-import kotlinx.coroutines.launch
-import kotlinx.coroutines.tasks.await
-import timber.log.Timber
+import kotlinx.coroutines.ExperimentalCoroutinesApi
+import kotlinx.coroutines.flow.MutableStateFlow
+import kotlinx.coroutines.flow.flatMapLatest
 import javax.inject.Inject
 
 
@@ -23,42 +20,19 @@ import javax.inject.Inject
  * Problems: 1.If the user is connected to wifi, fetch won't happen
  *           2.If shouldFetch is false + database is empty -> setShouldFetch to true
  */
+@ExperimentalCoroutinesApi
 @HiltViewModel
 class VideoListViewModel @Inject constructor(
     private val videoDao: VideoDao,
     private val vimeoApi: VimeoApi,
     private val shouldFetchDataStore: ShouldFetchDataStore
 ) : ViewModel() {
-    val videoDetails: LiveData<List<Video>> = videoDao.getAllVideos().asLiveData()
 
-    init {
-        viewModelScope.launch {
-            val shouldFetch = shouldFetchDataStore.shouldFetch()
-            Timber.v("shouldfetch value inside viewmodel initially: $shouldFetch")
-            if (shouldFetch!!) {
-                val collection = Firebase.firestore.collection("Abilities")
-                val queryDoc = collection.get().await()
-                val videos = queryDoc.toObjects(Video::class.java)
-                Timber.v("is videos list empty? ${videos.isEmpty()}")
+    val searchQuery = MutableStateFlow("")
 
-                for (video in videos) {
-                    Timber.v(video.title)
-                    val videoDetails = vimeoApi.getVideoDetails(video_id = video.video_url)
-                    for (videoDetail in videoDetails) {
-                        val singleVideo = video
-                        singleVideo.img_small = videoDetail.img_small
-                        singleVideo.img_medium = videoDetail.img_medium
-                        singleVideo.img_large = videoDetail.img_large
-                        singleVideo.video_duration = videoDetail.video_duration
-                        Timber.v("Inserting single video: " + singleVideo.toString())
-                        videoDao.insertSingleVideo(singleVideo)
-                    }
-                }
-                /*
-                Once the video fetching is completed, set should fetch to false
-                 */
-                shouldFetchDataStore.setShouldFetch(false)
-            }
-        }
+    private val videosFlow = searchQuery.flatMapLatest {
+        videoDao.getAllVideos(searchQuery = it)
     }
+
+    val videoDetails: LiveData<List<Video>> = videosFlow.asLiveData()
 }

@@ -1,7 +1,8 @@
-package com.harsh.lineupvalorant
+package com.harsh.lineupvalorant.ui
 
 import android.net.ConnectivityManager
 import android.os.Bundle
+import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.NavHostFragment
@@ -10,9 +11,12 @@ import androidx.work.ExistingPeriodicWorkPolicy
 import androidx.work.PeriodicWorkRequest
 import androidx.work.WorkManager
 import com.google.android.material.bottomnavigation.BottomNavigationView
+import com.harsh.lineupvalorant.R
 import com.harsh.lineupvalorant.data.sync.PeriodicSync
 import com.harsh.lineupvalorant.utils.datastore.ShouldFetchDataStore
 import dagger.hilt.android.AndroidEntryPoint
+import kotlinx.coroutines.Job
+import kotlinx.coroutines.launch
 import timber.log.Timber
 import java.util.concurrent.TimeUnit
 import javax.inject.Inject
@@ -31,6 +35,9 @@ class MainActivity : AppCompatActivity() {
     @Inject
     lateinit var shouldFetchDataStore: ShouldFetchDataStore
 
+    private val viewModel: MainViewModel by viewModels()
+    private var fetchingJob: Job? = null
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
@@ -41,7 +48,10 @@ class MainActivity : AppCompatActivity() {
         findViewById<BottomNavigationView>(R.id.bottom_nav)
             .setupWithNavController(navController)
 
+        setUpWorkManager();
+    }
 
+    private fun setUpWorkManager() {
         val periodicWorkRequest = PeriodicWorkRequest.Builder(
             PeriodicSync::class.java,
             1,
@@ -58,14 +68,17 @@ class MainActivity : AppCompatActivity() {
         for (work in wm) {
             Timber.v("Work: ${work}")
         }
+    }
 
-        lifecycleScope.launchWhenStarted {
-            if (shouldFetchDataStore.shouldFetch() == null) {
-                Timber.v("shouldfetch Value is null...setting to true")
-                shouldFetchDataStore.setShouldFetch(true)
-            }
-
+    override fun onStart() {
+        super.onStart()
+        fetchingJob = lifecycleScope.launch {
+            viewModel.fetchVideos()
         }
+    }
 
+    override fun onStop() {
+        fetchingJob?.cancel()
+        super.onStop()
     }
 }
