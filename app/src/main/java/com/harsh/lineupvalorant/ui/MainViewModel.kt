@@ -7,7 +7,7 @@ import com.google.firebase.ktx.Firebase
 import com.harsh.lineupvalorant.api.VimeoApi
 import com.harsh.lineupvalorant.data.Video
 import com.harsh.lineupvalorant.data.cache.VideoDao
-import com.harsh.lineupvalorant.utils.datastore.ShouldFetchDataStore
+import com.harsh.lineupvalorant.utils.datastore.CoreDataStore
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.tasks.await
@@ -18,7 +18,7 @@ import javax.inject.Inject
 class MainViewModel @Inject constructor(
     private val videoDao: VideoDao,
     private val vimeoApi: VimeoApi,
-    private val shouldFetchDataStore: ShouldFetchDataStore
+    private val coreDataStore: CoreDataStore
 ) : ViewModel() {
     init {
 
@@ -26,11 +26,11 @@ class MainViewModel @Inject constructor(
 
     fun fetchVideos() {
         viewModelScope.launch {
-            if (shouldFetchDataStore.shouldFetch() == null) {
+            if (coreDataStore.shouldFetch() == null) {
                 Timber.v("shouldfetch Value is null...setting to true")
-                shouldFetchDataStore.setShouldFetch(true)
+                coreDataStore.setShouldFetch(true)
             }
-            val shouldFetch = shouldFetchDataStore.shouldFetch()
+            val shouldFetch = coreDataStore.shouldFetch()
             Timber.v("shouldfetch value inside viewmodel initially: $shouldFetch")
             if (shouldFetch!!) {
                 val collection = Firebase.firestore.collection("Abilities")
@@ -54,7 +54,7 @@ class MainViewModel @Inject constructor(
                 /*
                 Once the video fetching is completed, set should fetch to false
                  */
-                shouldFetchDataStore.setShouldFetch(false)
+                coreDataStore.setShouldFetch(false)
             }
         }
     }

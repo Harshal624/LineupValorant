@@ -3,7 +3,7 @@ package com.harsh.lineupvalorant.data.sync
 import android.content.Context
 import androidx.work.CoroutineWorker
 import androidx.work.WorkerParameters
-import com.harsh.lineupvalorant.utils.datastore.ShouldFetchDataStore
+import com.harsh.lineupvalorant.utils.datastore.CoreDataStore
 import java.util.*
 import javax.inject.Inject
 
@@ -15,7 +15,7 @@ class PeriodicSync @Inject constructor(
     CoroutineWorker(context, workerParams) {
     val TAG = "PeriodicSync"
     override suspend fun doWork(): Result {
-        val shouldFetchDataStore = ShouldFetchDataStore(applicationContext)
+        val shouldFetchDataStore = CoreDataStore(applicationContext)
         if (shouldFetchDataStore.shouldFetch() == null) {
             shouldFetchDataStore.setShouldFetch(shouldFetch = true)
         }

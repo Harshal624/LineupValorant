@@ -6,7 +6,7 @@ import androidx.lifecycle.asLiveData
 import com.harsh.lineupvalorant.api.VimeoApi
 import com.harsh.lineupvalorant.data.Video
 import com.harsh.lineupvalorant.data.cache.VideoDao
-import com.harsh.lineupvalorant.utils.datastore.ShouldFetchDataStore
+import com.harsh.lineupvalorant.utils.datastore.CoreDataStore
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.flow.MutableStateFlow
@@ -25,7 +25,7 @@ import javax.inject.Inject
 class VideoListViewModel @Inject constructor(
     private val videoDao: VideoDao,
     private val vimeoApi: VimeoApi,
-    private val shouldFetchDataStore: ShouldFetchDataStore
+    private val coreDataStore: CoreDataStore
 ) : ViewModel() {
 
     val searchQuery = MutableStateFlow("")

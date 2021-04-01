@@ -9,25 +9,25 @@ import androidx.datastore.preferences.preferencesDataStore
 import kotlinx.coroutines.flow.first
 
 
-val Context.dataStore: DataStore<Preferences> by preferencesDataStore(name = "shouldfetch")
+val Context.dataStore: DataStore<Preferences> by preferencesDataStore(name = "core_datastore")
 
-class ShouldFetchDataStore(appContext: Context) {
-    private val shouldFetchDataStore = appContext.dataStore
+class CoreDataStore(appContext: Context) {
+    private val coreDataStore = appContext.dataStore
 
     suspend fun setShouldFetch(shouldFetch: Boolean) {
-        val dataStoreKey = booleanPreferencesKey(NAME_SHOULD_FETCH)
-        shouldFetchDataStore.edit {
+        val dataStoreKey = booleanPreferencesKey(KEY_SHOULD_FETCH)
+        coreDataStore.edit {
             it[dataStoreKey] = shouldFetch
         }
     }
 
     suspend fun shouldFetch(): Boolean? {
-        val dataStoreKey = booleanPreferencesKey(NAME_SHOULD_FETCH)
-        val preferences = shouldFetchDataStore.data.first()
+        val dataStoreKey = booleanPreferencesKey(KEY_SHOULD_FETCH)
+        val preferences = coreDataStore.data.first()
         return preferences[dataStoreKey]
     }
 
     companion object {
-        const val NAME_SHOULD_FETCH = "key:should_fetch"
+        const val KEY_SHOULD_FETCH = "key:should_fetch"
     }
 }

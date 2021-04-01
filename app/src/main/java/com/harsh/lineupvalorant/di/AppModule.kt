@@ -8,7 +8,7 @@ import com.harsh.lineupvalorant.api.VimeoApi
 import com.harsh.lineupvalorant.data.cache.VideoDao
 import com.harsh.lineupvalorant.data.cache.VideoDatabase
 import com.harsh.lineupvalorant.di.scope.ApplicationScope
-import com.harsh.lineupvalorant.utils.datastore.ShouldFetchDataStore
+import com.harsh.lineupvalorant.utils.datastore.CoreDataStore
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
@@ -82,6 +82,6 @@ object AppModule {
         application.getSystemService(Context.CONNECTIVITY_SERVICE) as ConnectivityManager
 
     @Provides
-    fun provideShouldFetchDataStore(application: Application): ShouldFetchDataStore =
-        ShouldFetchDataStore(application)
+    fun provideDataStore(application: Application): CoreDataStore =
+        CoreDataStore(application)
 }

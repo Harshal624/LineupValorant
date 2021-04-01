@@ -14,6 +14,12 @@ object LUtils {
 
     fun getVideoId(url: String): String {
         //Function to get video id from a url
-        return ""
+        return if (url.startsWith("http://vimeo.com", ignoreCase = true)) {
+            url.substringAfter("http://vimeo.com/")
+        } else if (url.startsWith("https://vimeo.com")) {
+            url.substringAfter("https://vimeo.com/")
+        } else {
+            url
+        }
     }
 }

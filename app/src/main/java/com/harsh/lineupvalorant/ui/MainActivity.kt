@@ -13,7 +13,7 @@ import androidx.work.WorkManager
 import com.google.android.material.bottomnavigation.BottomNavigationView
 import com.harsh.lineupvalorant.R
 import com.harsh.lineupvalorant.data.sync.PeriodicSync
-import com.harsh.lineupvalorant.utils.datastore.ShouldFetchDataStore
+import com.harsh.lineupvalorant.utils.datastore.CoreDataStore
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.Job
 import kotlinx.coroutines.launch
@@ -21,11 +21,7 @@ import timber.log.Timber
 import java.util.concurrent.TimeUnit
 import javax.inject.Inject
 
-/*
- *Upon very first launch of the app -> Perform hard sync i.e. retrieve all firestore data and put into local SQLite
- * If it's not a first launch + sqlite count != 0 -> Use workmanager to check newly added videos to firestore
- * Show notification e.g. 2 new videos found
- */
+
 @AndroidEntryPoint
 class MainActivity : AppCompatActivity() {
 
@@ -33,7 +29,7 @@ class MainActivity : AppCompatActivity() {
     lateinit var connectivityManager: ConnectivityManager
 
     @Inject
-    lateinit var shouldFetchDataStore: ShouldFetchDataStore
+    lateinit var coreDataStore: CoreDataStore
 
     private val viewModel: MainViewModel by viewModels()
     private var fetchingJob: Job? = null
