@@ -82,8 +82,12 @@
                 android:id="@+id/workmanager_tv"
                 android:gravity="center"
                 tools:text="My test String"
-                android:textColor="@color/white"
-                />
+                android:textColor="@color/white" />
+
+            <ImageView
+                android:id="@+id/iv_Thumbnail"
+                android:layout_width="match_parent"
+                android:layout_height="200dp" />
 
         </LinearLayout>
     </ScrollView>

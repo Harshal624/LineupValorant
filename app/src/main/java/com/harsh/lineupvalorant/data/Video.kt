@@ -1,10 +1,13 @@
 package com.harsh.lineupvalorant.data
 
+import android.os.Parcelable
 import androidx.annotation.Keep
 import androidx.room.Entity
 import androidx.room.PrimaryKey
 import com.google.firebase.firestore.Exclude
+import kotlinx.parcelize.Parcelize
 
+@Parcelize
 @Keep
 @Entity(tableName = "video_database")
 data class Video(
@@ -28,4 +31,4 @@ data class Video(
     var img_large: String = "",
     @Exclude
     var isFavourite: Boolean = false
-)
+) : Parcelable

@@ -19,6 +19,10 @@ interface VideoDao {
     @Query("DELETE from video_database")
     suspend fun deleteAllVideos()
 
+
+    @Query("SELECT COUNT(*) FROM video_database")
+    suspend fun getVideoCount(): Int
+
     @Query("SELECT * FROM video_database WHERE title LIKE '%' || :searchQuery || '%' ORDER BY date_added DESC")
     fun getAllVideos(searchQuery: String): Flow<List<Video>>
 
