@@ -9,7 +9,7 @@ import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.harsh.lineupvalorant.R
-import com.harsh.lineupvalorant.api.VimeoApi
+import com.harsh.lineupvalorant.api.DailyMotionApi
 import com.harsh.lineupvalorant.data.Video
 import com.harsh.lineupvalorant.databinding.VideoListFragmentBinding
 import com.harsh.lineupvalorant.utils.onQueryTextChanged
@@ -34,7 +34,7 @@ class VideoListFragment : Fragment(R.layout.video_list_fragment),
     private lateinit var navController: NavController
 
     @Inject
-    lateinit var vimeoApi: VimeoApi
+    lateinit var dailyMotionApi: DailyMotionApi
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)

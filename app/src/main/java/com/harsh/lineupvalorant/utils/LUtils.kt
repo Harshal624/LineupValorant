@@ -14,10 +14,10 @@ object LUtils {
 
     fun getVideoId(url: String): String {
         //Function to get video id from a url
-        return if (url.startsWith("http://vimeo.com", ignoreCase = true)) {
-            url.substringAfter("http://vimeo.com/")
-        } else if (url.startsWith("https://vimeo.com")) {
-            url.substringAfter("https://vimeo.com/")
+        return if (url.startsWith("https://www.dailymotion.com/video/", ignoreCase = true)) {
+            url.substringAfter("https://www.dailymotion.com/video/")
+        } else if (url.startsWith("http://www.dailymotion.com/video/")) {
+            url.substringAfter("http://www.dailymotion.com/video/")
         } else {
             url
         }

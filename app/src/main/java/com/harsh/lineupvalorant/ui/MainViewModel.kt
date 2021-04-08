@@ -5,7 +5,7 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.google.firebase.firestore.ktx.firestore
 import com.google.firebase.ktx.Firebase
-import com.harsh.lineupvalorant.api.VimeoApi
+import com.harsh.lineupvalorant.api.DailyMotionApi
 import com.harsh.lineupvalorant.data.Video
 import com.harsh.lineupvalorant.data.cache.VideoDao
 import com.harsh.lineupvalorant.utils.datastore.CoreDataStore
@@ -19,13 +19,11 @@ import javax.inject.Inject
 @HiltViewModel
 class MainViewModel @Inject constructor(
     private val videoDao: VideoDao,
-    private val vimeoApi: VimeoApi,
+    private val dailyMotionApi: DailyMotionApi,
     private val coreDataStore: CoreDataStore,
-    private val cm: ConnectivityManager
+    private val cm: ConnectivityManager,
+    //  private val fieldListForDailyMotion: List<String>
 ) : ViewModel() {
-    init {
-
-    }
 
     fun fetchVideos() {
         if (ConnectivityStatus.getConnectionType(cm) != 0) {
@@ -44,16 +42,16 @@ class MainViewModel @Inject constructor(
                     videoDao.insertVideos(videos)
                     for (video in videos) {
                         Timber.v(video.title)
-                        val videoDetails = vimeoApi.getVideoDetails(video_id = video.video_url)
-                        for (videoDetail in videoDetails) {
+                        val videoDetails =
+                            dailyMotionApi.getVideoDetails(video_id = video.video_url)
                             videoDao.updateVideoDetails(
-                                video_url = videoDetail.video_url,
-                                videoDuration = videoDetail.video_duration,
-                                imgSmall = videoDetail.img_small,
-                                imgMedium = videoDetail.img_medium,
-                                imgLarge = videoDetail.img_large
+                                video_url = videoDetails.video_id,
+                                videoDuration = videoDetails.video_duration,
+                                imgSmall = videoDetails.img_small,
+                                imgMedium = videoDetails.img_medium,
+                                imgLarge = videoDetails.img_large,
+                                totalViews = videoDetails.total_views
                             )
-                        }
                     }
                     /*
                     Once the video fetching is completed, set should fetch to false

@@ -4,23 +4,13 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
-    <com.google.android.exoplayer2.ui.PlayerView
-        android:id="@+id/exoplayerView"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
+
+    <com.dailymotion.android.player.sdk.PlayerWebView
+        android:id="@+id/dm_player_web_view"
+        android:layout_width="match_parent"
+        android:layout_height="215dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent">
-
-        <ProgressBar
-            android:id="@+id/progressBar"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center"
-            android:visibility="invisible" />
-
-    </com.google.android.exoplayer2.ui.PlayerView>
-
-    <!-- Other UI elements according to need-->
+        app:layout_constraintTop_toTopOf="parent" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

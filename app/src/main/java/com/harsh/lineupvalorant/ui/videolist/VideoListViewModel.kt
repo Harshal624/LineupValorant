@@ -3,7 +3,7 @@ package com.harsh.lineupvalorant.ui.videolist
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.asLiveData
-import com.harsh.lineupvalorant.api.VimeoApi
+import com.harsh.lineupvalorant.api.DailyMotionApi
 import com.harsh.lineupvalorant.data.Video
 import com.harsh.lineupvalorant.data.cache.VideoDao
 import com.harsh.lineupvalorant.utils.datastore.CoreDataStore
@@ -24,7 +24,7 @@ import javax.inject.Inject
 @HiltViewModel
 class VideoListViewModel @Inject constructor(
     private val videoDao: VideoDao,
-    private val vimeoApi: VimeoApi,
+    private val dailyMotionApi: DailyMotionApi,
     private val coreDataStore: CoreDataStore
 ) : ViewModel() {
 

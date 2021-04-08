@@ -32,7 +32,7 @@ class VideoListAdapter(
         fun bind(video: Video) {
             binding.apply {
                 if (video.img_medium.isNotEmpty()) {
-                    Glide.with(itemView).load(video.img_medium)
+                    Glide.with(itemView).load(video.img_large)
                         .diskCacheStrategy(DiskCacheStrategy.ALL)
                         .into(ivThumbnail)
                 }

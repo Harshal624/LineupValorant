@@ -30,5 +30,7 @@ data class Video(
     @Exclude
     var img_large: String = "",
     @Exclude
-    var isFavourite: Boolean = false
+    var isFavourite: Boolean = false,
+    @Exclude
+    var total_views: Int = 0
 ) : Parcelable

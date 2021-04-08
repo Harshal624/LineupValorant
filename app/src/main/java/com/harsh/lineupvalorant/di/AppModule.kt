@@ -4,7 +4,7 @@ import android.app.Application
 import android.content.Context
 import android.net.ConnectivityManager
 import androidx.room.Room
-import com.harsh.lineupvalorant.api.VimeoApi
+import com.harsh.lineupvalorant.api.DailyMotionApi
 import com.harsh.lineupvalorant.data.cache.VideoDao
 import com.harsh.lineupvalorant.data.cache.VideoDatabase
 import com.harsh.lineupvalorant.di.scope.ApplicationScope
@@ -58,7 +58,7 @@ object AppModule {
 
 
     @Provides
-    fun provideBaseUrl() = VimeoApi.VIMEO_BASE_URL
+    fun provideBaseUrl() = DailyMotionApi.DAILYMOTION_BASE_URL
 
     @Singleton
     @Provides
@@ -74,7 +74,8 @@ object AppModule {
 
     @Provides
     @Singleton
-    fun provideVimeApiService(retrofit: Retrofit) = retrofit.create(VimeoApi::class.java)
+    fun provideDailyMotionApiService(retrofit: Retrofit) =
+        retrofit.create(DailyMotionApi::class.java)
 
     @Provides
     @Singleton
@@ -84,4 +85,5 @@ object AppModule {
     @Provides
     fun provideDataStore(application: Application): CoreDataStore =
         CoreDataStore(application)
+
 }

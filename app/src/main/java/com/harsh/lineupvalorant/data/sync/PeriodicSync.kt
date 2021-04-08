@@ -4,7 +4,6 @@ import android.content.Context
 import androidx.work.CoroutineWorker
 import androidx.work.WorkerParameters
 import com.harsh.lineupvalorant.utils.datastore.CoreDataStore
-import java.util.*
 import javax.inject.Inject
 
 
@@ -13,7 +12,7 @@ class PeriodicSync @Inject constructor(
     workerParams: WorkerParameters
 ) :
     CoroutineWorker(context, workerParams) {
-    val TAG = "PeriodicSync"
+
     override suspend fun doWork(): Result {
         val shouldFetchDataStore = CoreDataStore(applicationContext)
         if (shouldFetchDataStore.shouldFetch() == null) {
@@ -22,16 +21,6 @@ class PeriodicSync @Inject constructor(
         if (!shouldFetchDataStore.shouldFetch()!!) {
             shouldFetchDataStore.setShouldFetch(true)
         }
-        var myString = "";
-        val calendar = Calendar.getInstance()
-        myString += "Day:${calendar.get(Calendar.DAY_OF_MONTH)}, Hour: ${calendar.get(Calendar.HOUR)}, Minute: ${
-            calendar.get(
-                Calendar.MINUTE
-            )
-        }\n"
-        LineupSharedPref.init(applicationContext)
-        myString += "\n\n${LineupSharedPref.setValue}"
-        LineupSharedPref.setValue = myString
         return Result.success()
     }
 }

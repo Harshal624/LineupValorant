@@ -2,7 +2,7 @@ package com.harsh.lineupvalorant.ui.home
 
 import androidx.lifecycle.SavedStateHandle
 import androidx.lifecycle.ViewModel
-import com.harsh.lineupvalorant.api.VimeoApi
+import com.harsh.lineupvalorant.api.DailyMotionApi
 import dagger.hilt.android.lifecycle.HiltViewModel
 import javax.inject.Inject
 
@@ -12,7 +12,7 @@ import javax.inject.Inject
  */
 @HiltViewModel
 class HomeViewModel @Inject constructor(
-    private val vimeoApi: VimeoApi,
+    private val dailyMotionApi: DailyMotionApi,
     private val saveStateHandle: SavedStateHandle
 ) : ViewModel() {
 

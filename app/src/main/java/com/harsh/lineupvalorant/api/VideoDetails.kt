@@ -6,18 +6,21 @@ import com.google.gson.annotations.SerializedName
 data class VideoDetails(
     @Expose
     @SerializedName("id")
-    val video_url: String,
+    val video_id: String,
     @Expose
     @SerializedName("duration")
     val video_duration: Long,
     @Expose
-    @SerializedName("thumbnail_small")
+    @SerializedName("thumbnail_360_url")
     val img_small: String,
     @Expose
-    @SerializedName("thumbnail_medium")
+    @SerializedName("thumbnail_720_url")
     val img_medium: String,
     @Expose
-    @SerializedName("thumbnail_large")
-    val img_large: String
+    @SerializedName("thumbnail_1080_url")
+    val img_large: String,
+    @Expose
+    @SerializedName("views_total")
+    val total_views: Int
 ) {
 }

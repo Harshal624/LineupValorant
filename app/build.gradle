@@ -102,12 +102,12 @@ dependencies {
 
     implementation "androidx.datastore:datastore-preferences:1.0.0-alpha08"
 
-    implementation 'com.google.android.exoplayer:exoplayer-core:2.13.2'
-    implementation 'com.google.android.exoplayer:exoplayer-dash:2.13.2'
-    implementation 'com.google.android.exoplayer:exoplayer-ui:2.13.2'
 
     //Lottie
     def lottieVersion = "3.6.1"
     implementation "com.airbnb.android:lottie:$lottieVersion"
+
+    implementation 'com.dailymotion.dailymotion-sdk-android:sdk:0.2.6'
+
 
 }

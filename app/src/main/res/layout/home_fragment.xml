@@ -76,19 +76,6 @@
                 android:drawableEnd="@drawable/ic_baseline_arrow_forward_ios_24"
                 />
 
-            <TextView
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:id="@+id/workmanager_tv"
-                android:gravity="center"
-                tools:text="My test String"
-                android:textColor="@color/white" />
-
-            <ImageView
-                android:id="@+id/iv_Thumbnail"
-                android:layout_width="match_parent"
-                android:layout_height="200dp" />
-
         </LinearLayout>
     </ScrollView>
 
