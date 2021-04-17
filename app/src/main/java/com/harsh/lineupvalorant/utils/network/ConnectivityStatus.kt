@@ -6,6 +6,10 @@ import android.os.Build
 import androidx.annotation.IntRange
 
 
+/*
+ * //TODO Replace with livedata so that we could observe the live changes of the internet connection
+ * Could be cellular, wifi, vpn
+ */
 object ConnectivityStatus {
 
     @IntRange(from = 0, to = 3)

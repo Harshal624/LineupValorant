@@ -11,8 +11,10 @@ interface DailyMotionApi {
     ): VideoDetails
 
     companion object {
+
         const val DAILYMOTION_BASE_URL = "https://api.dailymotion.com/"
         const val fieldsToBeUsed =
             "id,duration,views_total,thumbnail_1080_url,thumbnail_720_url,thumbnail_360_url"
+
     }
 }

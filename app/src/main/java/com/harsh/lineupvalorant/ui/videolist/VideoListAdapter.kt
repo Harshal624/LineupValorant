@@ -8,6 +8,7 @@ import com.bumptech.glide.Glide
 import com.bumptech.glide.load.engine.DiskCacheStrategy
 import com.harsh.lineupvalorant.data.Video
 import com.harsh.lineupvalorant.databinding.ItemVideoBinding
+import com.harsh.lineupvalorant.utils.LUtils
 
 class VideoListAdapter(
     videoClickListener: OnVideoClickListener
@@ -34,11 +35,12 @@ class VideoListAdapter(
                 if (video.img_medium.isNotEmpty()) {
                     Glide.with(itemView).load(video.img_large)
                         .diskCacheStrategy(DiskCacheStrategy.ALL)
+                        .centerCrop()
                         .into(ivThumbnail)
                 }
                 tvTitle.text = video.title
-                tvAgent.text = video.agent_name
-                tvImgurl.text = video.img_small
+                tvViews.text = "Views ${video.total_views}"
+                tvDuration.text = LUtils.formatToDigitalClock(video.video_duration)
             }
         }
 

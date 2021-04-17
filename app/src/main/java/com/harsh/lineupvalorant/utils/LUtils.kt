@@ -22,4 +22,9 @@ object LUtils {
             url
         }
     }
+
+    //TODO Handle hourly scenario too
+    fun formatToDigitalClock(secs: Long): String =
+        "${(secs / 60).toString().padStart(2, '0')}:${(secs % 60).toString().padStart(2, '0')}"
+
 }

@@ -4,6 +4,7 @@ import com.google.gson.annotations.Expose
 import com.google.gson.annotations.SerializedName
 
 data class VideoDetails(
+
     @Expose
     @SerializedName("id")
     val video_id: String,
@@ -22,5 +23,6 @@ data class VideoDetails(
     @Expose
     @SerializedName("views_total")
     val total_views: Int
+
 ) {
 }

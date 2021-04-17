@@ -43,6 +43,11 @@ class MainActivity : AppCompatActivity() {
         val navController = navHostFragment.navController
         findViewById<BottomNavigationView>(R.id.bottom_nav)
             .setupWithNavController(navController)
+        findViewById<BottomNavigationView>(R.id.bottom_nav)
+            .background = null
+        findViewById<BottomNavigationView>(R.id.bottom_nav)
+            .menu.getItem(1).setEnabled(false)
+
 
         setUpWorkManager();
     }

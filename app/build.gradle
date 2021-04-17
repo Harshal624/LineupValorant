@@ -109,5 +109,9 @@ dependencies {
 
     implementation 'com.dailymotion.dailymotion-sdk-android:sdk:0.2.6'
 
+    implementation 'de.hdodenhof:circleimageview:3.1.0'
+
+    implementation 'com.google.android.material:material:1.4.0-alpha02'
+
 
 }

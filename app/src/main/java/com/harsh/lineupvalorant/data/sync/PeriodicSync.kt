@@ -4,10 +4,9 @@ import android.content.Context
 import androidx.work.CoroutineWorker
 import androidx.work.WorkerParameters
 import com.harsh.lineupvalorant.utils.datastore.CoreDataStore
-import javax.inject.Inject
 
 
-class PeriodicSync @Inject constructor(
+class PeriodicSync(
     context: Context,
     workerParams: WorkerParameters
 ) :
