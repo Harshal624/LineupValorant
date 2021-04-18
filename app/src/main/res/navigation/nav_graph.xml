@@ -18,10 +18,31 @@
         android:id="@+id/favouritesFragment"
         android:name="com.harsh.lineupvalorant.ui.fav.FavouritesFragment"
         android:label="favourites_fragment"
-        tools:layout="@layout/favourites_fragment" />
+        tools:layout="@layout/favourites_fragment">
+        <action
+            android:id="@+id/action_favouritesFragment_to_videoPlayerFragment"
+            app:destination="@id/videoPlayerFragment" />
+    </fragment>
     <fragment
         android:id="@+id/videoListFragment"
-        android:name="com.harsh.lineupvalorant.ui.VideoListFragment"
+        android:name="com.harsh.lineupvalorant.ui.videolist.VideoListFragment"
         android:label="video_list_fragment"
-        tools:layout="@layout/video_list_fragment" />
+        tools:layout="@layout/video_list_fragment">
+        <argument
+            android:name="video_type"
+            app:argType="string"
+            app:nullable="true" />
+        <action
+            android:id="@+id/action_videoListFragment_to_videoPlayerFragment"
+            app:destination="@id/videoPlayerFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/videoPlayerFragment"
+        android:name="com.harsh.lineupvalorant.ui.videoplayer.VideoPlayerFragment"
+        android:label="video_player_fragment"
+        tools:layout="@layout/video_player_fragment">
+        <argument
+            android:name="video"
+            app:argType="com.harsh.lineupvalorant.data.Video" />
+    </fragment>
 </navigation>
