@@ -7,7 +7,6 @@ import androidx.fragment.app.viewModels
 import androidx.navigation.NavController
 import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
-import androidx.recyclerview.widget.LinearLayoutManager
 import com.harsh.lineupvalorant.R
 import com.harsh.lineupvalorant.api.DailyMotionApi
 import com.harsh.lineupvalorant.data.Video
@@ -46,7 +45,7 @@ class VideoListFragment : Fragment(R.layout.video_list_fragment),
 
         binding.apply {
             recyclerview.adapter = adapter
-            recyclerview.layoutManager = LinearLayoutManager(requireContext())
+            //recyclerview.layoutManager = LinearLayoutManager(requireContext())
             recyclerview.setHasFixedSize(true)
         }
         viewModel.videoDetails.observe(viewLifecycleOwner) {

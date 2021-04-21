@@ -8,6 +8,7 @@ import com.harsh.lineupvalorant.api.DailyMotionApi
 import com.harsh.lineupvalorant.data.cache.VideoDao
 import com.harsh.lineupvalorant.data.cache.VideoDatabase
 import com.harsh.lineupvalorant.di.scope.ApplicationScope
+import com.harsh.lineupvalorant.utils.Constants
 import com.harsh.lineupvalorant.utils.datastore.CoreDataStore
 import dagger.Module
 import dagger.Provides
@@ -58,7 +59,7 @@ object AppModule {
 
 
     @Provides
-    fun provideBaseUrl() = DailyMotionApi.DAILYMOTION_BASE_URL
+    fun provideBaseUrl() = Constants.DAILYMOTION_BASE_URL
 
     @Singleton
     @Provides
