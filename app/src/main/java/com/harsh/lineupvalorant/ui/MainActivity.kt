@@ -4,21 +4,13 @@ import android.net.ConnectivityManager
 import android.os.Bundle
 import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
-import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.NavHostFragment
 import androidx.navigation.ui.setupWithNavController
-import androidx.work.ExistingPeriodicWorkPolicy
-import androidx.work.PeriodicWorkRequest
-import androidx.work.WorkManager
 import com.google.android.material.bottomnavigation.BottomNavigationView
 import com.harsh.lineupvalorant.R
-import com.harsh.lineupvalorant.data.sync.PeriodicSync
 import com.harsh.lineupvalorant.utils.datastore.CoreDataStore
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.Job
-import kotlinx.coroutines.launch
-import timber.log.Timber
-import java.util.concurrent.TimeUnit
 import javax.inject.Inject
 
 
@@ -47,39 +39,5 @@ class MainActivity : AppCompatActivity() {
             .background = null
         findViewById<BottomNavigationView>(R.id.bottom_nav)
             .menu.getItem(1).setEnabled(false)
-
-
-        setUpWorkManager();
-    }
-
-    private fun setUpWorkManager() {
-        val periodicWorkRequest = PeriodicWorkRequest.Builder(
-            PeriodicSync::class.java,
-            1,
-            TimeUnit.HOURS
-        ).build()
-        WorkManager.getInstance(this).enqueueUniquePeriodicWork(
-            "MYWORK",
-            ExistingPeriodicWorkPolicy.KEEP,
-            periodicWorkRequest
-        )
-
-        val workmanager = WorkManager.getInstance(this).getWorkInfosForUniqueWork("MYWORK")
-        val wm = workmanager.get()
-        for (work in wm) {
-            Timber.v("Work: ${work}")
-        }
-    }
-
-    override fun onStart() {
-        super.onStart()
-        fetchingJob = lifecycleScope.launch {
-            viewModel.fetchVideos()
-        }
-    }
-
-    override fun onStop() {
-        fetchingJob?.cancel()
-        super.onStop()
     }
 }

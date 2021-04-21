@@ -31,6 +31,7 @@
         <argument
             android:name="video_type"
             app:argType="string"
+            android:defaultValue="All"
             app:nullable="true" />
         <action
             android:id="@+id/action_videoListFragment_to_videoPlayerFragment"

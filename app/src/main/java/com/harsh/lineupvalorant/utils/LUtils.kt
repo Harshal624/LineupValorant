@@ -3,7 +3,12 @@ package com.harsh.lineupvalorant.utils
 import java.time.Instant
 import java.util.concurrent.TimeUnit
 
+/*
+ * A global util class containing all the utility functions that could be used throughout the app
+ */
 object LUtils {
+
+
     fun getCurrentTimeInEPOCH(): Long {
         return if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.O) {
             Instant.now().epochSecond

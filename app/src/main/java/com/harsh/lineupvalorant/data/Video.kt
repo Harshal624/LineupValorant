@@ -63,8 +63,7 @@ data class Video(
 
         //TODO ADD MORE CONSTANTS FOR ABILITIES, AGENTS
         /*
-         * The more constans(integers), the faster is the firestore fetch and better the user experience :)
-         * 'Strings sucks'
+         * Integers are faster than Strings :)
          * Only the title, video_url, video_download_url, description need to be strings
          */
     }
