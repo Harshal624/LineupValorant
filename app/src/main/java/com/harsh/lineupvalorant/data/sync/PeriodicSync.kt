@@ -155,7 +155,6 @@ class PeriodicSync @AssistedInject constructor(
         }
     }
 
-    //Use companion object only if you want to access the inner object outside the class
     companion object {
         const val VIDEO_NOTIFICATION_CHANNEL_ID = "video_fetch_notification_channel_id"
     }
