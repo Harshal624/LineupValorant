@@ -7,12 +7,15 @@ import androidx.datastore.preferences.core.booleanPreferencesKey
 import androidx.datastore.preferences.core.edit
 import androidx.datastore.preferences.preferencesDataStore
 import kotlinx.coroutines.flow.first
+import javax.inject.Inject
+import javax.inject.Singleton
 
 
 val Context.dataStore: DataStore<Preferences> by preferencesDataStore(name = "core_datastore")
 
 
-class CoreDataStore(appContext: Context) {
+@Singleton
+class CoreDataStore @Inject constructor(appContext: Context) {
     private val coreDataStore = appContext.dataStore
 
     suspend fun setBooleanDataInDataStore(value: Boolean, dataStoreKey: String) {

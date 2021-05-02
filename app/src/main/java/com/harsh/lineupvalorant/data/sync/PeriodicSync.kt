@@ -33,7 +33,8 @@ class PeriodicSync @AssistedInject constructor(
     @Assisted workerParams: WorkerParameters,
     private val videoDao: VideoDao,
     private val dailyMotionApi: DailyMotionApi,
-    private val cm: ConnectivityManager
+    private val cm: ConnectivityManager,
+    private val dataStore: CoreDataStore
 
 ) :
     CoroutineWorker(appContext, workerParams) {
@@ -53,7 +54,6 @@ class PeriodicSync @AssistedInject constructor(
 
     private suspend fun fetchVideos() {
         if (ConnectivityStatus.getConnectionType(cm) != 0) {
-            val dataStore = CoreDataStore(applicationContext)
             if (dataStore.isFirstAppInstall()) {
                 //Is first install, show videos are loading notification
                 Timber.v("Is first app install, showing videos are loading notification")

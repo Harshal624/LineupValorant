@@ -20,7 +20,7 @@ data class Video(
     var agent_name: String = "",
     var map: Int = 0,
     var ability: String = "",
-    var ability_type: Int = 0,
+    var ability_type: Int = -1,
     /*
      * A site = 1
      * B site = 2
@@ -37,7 +37,9 @@ data class Video(
     @Exclude
     var img_large: String = "",
     @Exclude
-    var total_views: Int = 0
+    var total_views: Int = -1,
+    @Exclude
+    var isFavourite: Boolean = false
 
 ) : Parcelable {
 

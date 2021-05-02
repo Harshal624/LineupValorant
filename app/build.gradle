@@ -87,7 +87,7 @@ dependencies {
     kapt 'androidx.hilt:hilt-compiler:1.0.0-beta01'
 
     //Room
-    def room_version = "2.2.6"
+    def room_version = "2.3.0"
 
     implementation "androidx.room:room-runtime:$room_version"
     kapt "androidx.room:room-compiler:$room_version"
@@ -116,6 +116,13 @@ dependencies {
     implementation 'de.hdodenhof:circleimageview:3.1.0'
 
     implementation 'com.google.android.material:material:1.4.0-alpha02'
+
+    implementation 'com.facebook.shimmer:shimmer:0.5.0'
+
+    //Paging 3
+    def paging_version = "3.0.0-rc01"
+    implementation "androidx.paging:paging-runtime:$paging_version"
+
 
 
 }

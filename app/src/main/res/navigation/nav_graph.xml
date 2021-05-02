@@ -8,8 +8,8 @@
     <fragment
         android:id="@+id/homeFragment"
         android:name="com.harsh.lineupvalorant.ui.home.HomeFragment"
-        android:label="home_fragment"
-        tools:layout="@layout/home_fragment" >
+        android:label="Home"
+        tools:layout="@layout/home_fragment">
         <action
             android:id="@+id/action_homeFragment_to_videoListFragment"
             app:destination="@id/videoListFragment" />
@@ -17,7 +17,7 @@
     <fragment
         android:id="@+id/favouritesFragment"
         android:name="com.harsh.lineupvalorant.ui.fav.FavouritesFragment"
-        android:label="favourites_fragment"
+        android:label="Favourites"
         tools:layout="@layout/favourites_fragment">
         <action
             android:id="@+id/action_favouritesFragment_to_videoPlayerFragment"
@@ -26,16 +26,19 @@
     <fragment
         android:id="@+id/videoListFragment"
         android:name="com.harsh.lineupvalorant.ui.videolist.VideoListFragment"
-        android:label="video_list_fragment"
+        android:label="{video_type}"
         tools:layout="@layout/video_list_fragment">
         <argument
             android:name="video_type"
-            app:argType="string"
             android:defaultValue="All"
+            app:argType="string"
             app:nullable="true" />
         <action
             android:id="@+id/action_videoListFragment_to_videoPlayerFragment"
             app:destination="@id/videoPlayerFragment" />
+        <action
+            android:id="@+id/action_videoListFragment_to_filterFragment"
+            app:destination="@id/filterFragment" />
     </fragment>
     <fragment
         android:id="@+id/videoPlayerFragment"
@@ -46,4 +49,9 @@
             android:name="video"
             app:argType="com.harsh.lineupvalorant.data.Video" />
     </fragment>
+    <fragment
+        android:id="@+id/filterFragment"
+        android:name="com.harsh.lineupvalorant.ui.filter.FilterFragment"
+        android:label="filter_fragment"
+        tools:layout="@layout/filter_fragment" />
 </navigation>

@@ -1,3 +1,10 @@
 <resources>
     <string name="app_name">LineupValorant</string>
+    <string name="label_search">Search</string>
+    <string name="label_filter">Filter</string>
+    <string name="label_sort">Sort</string>
+    <string name="label_hide_favourites">Hide favourites</string>
+    <string name="label_refresh">Refresh</string>
+    <string name="label_sort_by_views">Sort by views</string>
+    <string name="label_sort_by_created">Sort by created</string>
 </resources>

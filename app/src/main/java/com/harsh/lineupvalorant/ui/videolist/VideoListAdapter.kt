@@ -6,17 +6,22 @@ import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.bumptech.glide.load.engine.DiskCacheStrategy
+import com.facebook.shimmer.Shimmer
+import com.facebook.shimmer.ShimmerDrawable
 import com.harsh.lineupvalorant.data.Video
 import com.harsh.lineupvalorant.databinding.ItemVideoBinding
 import com.harsh.lineupvalorant.utils.LUtils
 
 class VideoListAdapter(
-    videoClickListener: OnVideoClickListener
+    videoClickListener: OnVideoClickListener,
+    shimmer: Shimmer
 ) : ListAdapter<Video, VideoListAdapter.VideoViewHolder>(VideoComparator()) {
 
     var videoClickListener: OnVideoClickListener? = null
+    var shimmer: Shimmer? = null
     init {
         this.videoClickListener = videoClickListener
+        this.shimmer = shimmer
     }
 
     inner class VideoViewHolder(private val binding: ItemVideoBinding) :
@@ -31,9 +36,14 @@ class VideoListAdapter(
         }
 
         fun bind(video: Video) {
+            val shimmerDrawable = ShimmerDrawable().apply {
+                setShimmer(shimmer)
+            }
+
             binding.apply {
                 if (video.img_medium.isNotEmpty()) {
                     Glide.with(itemView).load(video.img_large)
+                        .placeholder(shimmerDrawable)
                         .diskCacheStrategy(DiskCacheStrategy.ALL)
                         .centerCrop()
                         .into(ivThumbnail)

@@ -1,16 +1,15 @@
 package com.harsh.lineupvalorant.ui.videolist
 
-import androidx.lifecycle.LiveData
-import androidx.lifecycle.ViewModel
-import androidx.lifecycle.asLiveData
-import com.harsh.lineupvalorant.api.DailyMotionApi
-import com.harsh.lineupvalorant.data.Video
+import androidx.lifecycle.*
 import com.harsh.lineupvalorant.data.cache.VideoDao
-import com.harsh.lineupvalorant.utils.datastore.CoreDataStore
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.ExperimentalCoroutinesApi
+import kotlinx.coroutines.channels.Channel
 import kotlinx.coroutines.flow.MutableStateFlow
+import kotlinx.coroutines.flow.combine
 import kotlinx.coroutines.flow.flatMapLatest
+import kotlinx.coroutines.flow.receiveAsFlow
+import kotlinx.coroutines.launch
 import javax.inject.Inject
 
 
@@ -24,15 +23,65 @@ import javax.inject.Inject
 @HiltViewModel
 class VideoListViewModel @Inject constructor(
     private val videoDao: VideoDao,
-    private val dailyMotionApi: DailyMotionApi,
-    private val coreDataStore: CoreDataStore
+    //Saved state handle here contains the saved state argumenets + safe args
+    private val state: SavedStateHandle
 ) : ViewModel() {
 
-    val searchQuery = MutableStateFlow("")
+    private val videoEventsChannel = Channel<VideoEvent>()
+    val videoEvent = videoEventsChannel.receiveAsFlow()
 
-    private val videosFlow = searchQuery.flatMapLatest {
-        videoDao.getAllVideos(searchQuery = it)
+    // val searchQuery = MutableStateFlow("")
+
+    val sortOrder = MutableStateFlow(SortOrder.BY_DATE)
+
+    val hideFavourites = MutableStateFlow(false)
+
+    /*
+     Here we can directly access the safe-args arguments via saved state handle
+     The key should be same as the argument name
+     We could use this variable to pre-fill filter dialog. Not being used for now
+     */
+    val videoType = state.get<String>("video_type")
+
+    /*
+    Cool this about saving the livedata in the saved state handle is we don't have to
+    handle the set method
+    Whenever we make changes to the searchquery it will automatically persist the current query in the
+    save state
+     */
+    val searchQuery = state.getLiveData("searchQuery", "")
+
+
+    /**
+     * Returns a flow that switches to a new flow produced by transform function every time the original
+     * flow emits a value. When the original flow emits a new value, the previous flow produced by
+     * transform block is cancelled.
+     */
+    private val videosFlow = combine(
+        //Converting the livedata to flow since livedata cannot be combined
+        searchQuery.asFlow(),
+        sortOrder,
+        hideFavourites
+    ) { query, sortOrder, hideFav ->
+        Triple(query, sortOrder, hideFav)
+
+    }.flatMapLatest {
+        videoDao.getVideos(it.first, it.second, it.third)
     }
 
-    val videoDetails: LiveData<List<Video>> = videosFlow.asLiveData()
+    val videoDetails = videosFlow.asLiveData()
+
+    fun onFilterClick(videoType: String) {
+        viewModelScope.launch {
+            videoEventsChannel.send(VideoEvent.NavigateToFilterVideoScreen(videoType))
+        }
+    }
+}
+
+sealed class VideoEvent {
+    data class NavigateToFilterVideoScreen(val videoType: String) : VideoEvent()
+}
+
+enum class SortOrder {
+    BY_DATE, BY_VIEWS
 }

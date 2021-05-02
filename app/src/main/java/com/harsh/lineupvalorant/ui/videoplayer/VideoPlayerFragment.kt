@@ -7,8 +7,16 @@ import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.navArgs
 import com.harsh.lineupvalorant.R
 import com.harsh.lineupvalorant.databinding.VideoPlayerFragmentBinding
+import dagger.hilt.android.AndroidEntryPoint
 
 
+/*
+ TODO Implement deeplink here to play any dailymotion url in the video view
+ 1.Get the incoming video url
+ 2.Check local database if 'Video' exists for the incoming video url
+ 3.Fill the contents e.g. video_title, description, likes, etc
+ */
+@AndroidEntryPoint
 class VideoPlayerFragment : Fragment(R.layout.video_player_fragment) {
 
 
@@ -21,7 +29,10 @@ class VideoPlayerFragment : Fragment(R.layout.video_player_fragment) {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         _binding = VideoPlayerFragmentBinding.bind(view)
-        binding.dmPlayerWebView.load(mapOf("video" to args.video.video_url))
+
+        binding.apply {
+            dmPlayerWebView.load(mapOf("video" to viewModel.videoUrl))
+        }
     }
 
     override fun onPause() {
